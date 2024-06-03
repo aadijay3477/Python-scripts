@@ -56,10 +56,8 @@ Use these macros responsibly. Automating game tasks can violate the game's terms
 
 **Happy surviving!**
 
-For any issues or suggestions, feel free to open an issue on GitHub or contact us at your.email@example.com.
+For any issues or suggestions, feel free to open an issue on GitHub or contact us at aadijay7@gmail.com.
 
 ---
 
-![Doomsday Last Survivors](https://statics.9458.com/game/1120/news/2023/11/22/211349_655eb55dd5f943017.png) 
-
-*(Replace the image link with an actual image URL relevant to your project)*
+![Doomsday Last Survivors](https://statics.9458.com/game/1120/news/2023/11/22/211349_655eb55dd5f943017.png)

@@ -1,7 +1,9 @@
+# heal v1.1 in progress...
+
+import threading
 import pyautogui
 import time
 import pygetwindow as gw
-import keyboard
 import random
 
 # Constants for offsets and random variation
@@ -53,13 +55,6 @@ def handle_troop_type(center, duration):
     pyautogui.press('0')
     random_sleep(0.39)
 
-# Function to perform random mouse movements
-def random_mouse_movement():
-    x, y = pyautogui.position()
-    new_x = x + random.randint(-100, 100)
-    new_y = y + random.randint(-100, 100)
-    pyautogui.moveTo(new_x, new_y, duration=random.uniform(0.1, 0.3))
-
 # Function to find and click the image
 def find_and_click_image(image_key, duration, max_wait=0):
     image_path = IMAGE_PATH[image_key]
@@ -89,7 +84,21 @@ def find_and_click_image(image_key, duration, max_wait=0):
             print(f"Image {image_key} not found within the max wait time of {max_wait} seconds")
             return False
         random_sleep(1)  # Add a small delay before retrying
-        # random_mouse_movement()  # Perform random mouse movement
+
+# Function to keep the mouse within the game window's boundaries
+def keep_mouse_within_window():
+    while True:
+        try:
+            game_win = gw.getWindowsWithTitle('Doomsday: Last Survivors')[0]
+            game_rect = game_win.rect
+            mouse_x, mouse_y = pyautogui.position()
+            if not game_rect.left < mouse_x < game_rect.right or not game_rect.top < mouse_y < game_rect.bottom:
+                pyautogui.moveTo(game_rect.left + random.randint(10, game_rect.width - 10),
+                game_rect.top + random.randint(10, game_rect.height - 10),
+                duration=random.uniform(0.1, 0.3))
+        except IndexError:
+            pass  # Handle the case when the game window is not found
+        time.sleep(random.uniform(1, 5))  # Random interval between checking window and adjusting mouse position
 
 # Activate the game window
 def activate_window():
@@ -104,25 +113,26 @@ def activate_window():
 def run_macro():
     new_variable = 0
 
-    while new_variable < MAX_LIMIT_HEAL:
-        if keyboard.is_pressed('F8'):
-            print("F8 pressed, stopping the macro.")
-            break
+    # Start the thread to keep the mouse within the game window
+    mouse_within_window_thread = threading.Thread(target=keep_mouse_within_window)
+    mouse_within_window_thread.daemon = True
+    mouse_within_window_thread.start()
 
+    while new_variable < MAX_LIMIT_HEAL:
         new_variable += 1
         random_sleep(0.103)  # Increased delay
-        
+
         # Ensure the game window is activated before each interaction
         activate_window()
-        
+
         # Perform clicks based on image paths
         if find_and_click_image('help-icon', 0.1):
             random_sleep(0.104)  # Increased delay
-        
+
         activate_window()  # Ensure window is active before next interaction
         if find_and_click_image('down-key', 0.198):
             random_sleep(0.15)  # Increased delay
-        
+
         activate_window()
 
         if find_and_click_image('troop-type', 0.18):
@@ -131,11 +141,11 @@ def run_macro():
 
         if find_and_click_image('help-button', 0.2):
             random_sleep(0.12)
-        
+
         activate_window()  # Ensure window is active before next interaction
         if find_and_click_image('alliance-help', 0.2):
             random_sleep(0.14)
-        
+
         activate_window()  # Ensure window is active before next interaction
         if find_and_click_image('archers', 0.33, max_wait=MAX_WAIT_TIME):
             print("Archers found and clicked.")
