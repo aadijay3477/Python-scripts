@@ -7,17 +7,16 @@ import random
 # Constants for offsets and random variation
 PIXEL_OFFSET = 5
 TIME_VARIATION = 0.003
-MAX_LIMIT_HIVE = 300
+MAX_LIMIT_HEAL = 300
 MAX_WAIT_TIME = 26 * 60  # 26 minutes in seconds
 MIN_WAIT_TIME = 60  # 1 minute in seconds
 
 IMAGE_PATH = {
-    'archers': r'./Assets/Heal/Screen_20240602164210.png',    # change here for reclaiming troop-type
-    'help-icon': r'./Assets/Heal/Screen_20240602022915.png',
-    'down-key': r'./Assets/Heal/Screen_20240602023513.png',
-    'troop-type': r'./Assets/Heal/Screen_20240602192343.png',  # change here to different heal type whichever u want to heal
-    'help-button': r'./Assets/Heal/Screen_20240602002218.png',
-    'alliance-help': r'./Assets/Heal/Screen_20240602221430.png',
+    'search-icon': './Assets/hive/Screen_20240603170954.png',
+    'search-button': './Assets/hive/Screen_20240603171021.png',
+    'rally-button': './Assets/hive/Screen_20240603171021.png',
+    'already launched': './Assets/hive/',
+    'march-button': './Assets/hive/Screen_20240603171327',
 }
 
 # Function to click at a specific position with a random offset
@@ -37,21 +36,6 @@ def random_sleep(base_time):
 # Function to handle additional logic for troop-type image
 def handle_troop_type(center, duration):
     click(center.x + 390, center.y + 11, duration)  # Adjust click position
-    random_sleep(0.2)
-    pyautogui.keyDown('ctrl')
-    random_sleep(0.189)
-    pyautogui.press('a')
-    random_sleep(0.376)
-    pyautogui.keyUp('ctrl')
-    random_sleep(0.2)
-    pyautogui.press('backspace')
-    random_sleep(0.26)
-    pyautogui.press('7')
-    random_sleep(0.207)
-    pyautogui.press('0')
-    random_sleep(0.199)
-    pyautogui.press('0')
-    random_sleep(0.39)
 
 # Function to perform random mouse movements
 def random_mouse_movement():
@@ -104,43 +88,7 @@ def activate_window():
 def run_macro():
     new_variable = 0
 
-    while new_variable < MAX_LIMIT_HIVE:
+    while new_variable < MAX_LIMIT_HEAL:
         if keyboard.is_pressed('F8'):
             print("F8 pressed, stopping the macro.")
             break
-
-        new_variable += 1
-        random_sleep(0.103)  # Increased delay
-        
-        # Ensure the game window is activated before each interaction
-        activate_window()
-        
-        # Perform clicks based on image paths
-        if find_and_click_image('help-icon', 0.1):
-            random_sleep(0.104)  # Increased delay
-        
-        activate_window()  # Ensure window is active before next interaction
-        if find_and_click_image('down-key', 0.198):
-            random_sleep(0.15)  # Increased delay
-        
-        activate_window()
-
-        if find_and_click_image('troop-type', 0.18):
-            random_sleep(0.17)
-        activate_window()  # Ensure window is active before next interaction
-
-        if find_and_click_image('help-button', 0.2):
-            random_sleep(0.12)
-        
-        activate_window()  # Ensure window is active before next interaction
-        if find_and_click_image('alliance-help', 0.2):
-            random_sleep(0.14)
-        
-        activate_window()  # Ensure window is active before next interaction
-        if find_and_click_image('archers', 0.33, max_wait=MAX_WAIT_TIME):
-            print("Archers found and clicked.")
-
-# Run the script
-if __name__ == "__main__":
-    activate_window()
-    run_macro()
