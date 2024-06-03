@@ -9,14 +9,14 @@ Doomsday Last Survivors is an engaging but grind-heavy game. Our suite of macros
 ## Features
 
 - **Healing Macro**: Reduce healing time from days to hours.
-- **More Macros Coming Soon**: We're constantly developing new macros to enhance your gameplay.
+- **More Macros Coming Soon**: I'm constantly developing new macros to enhance your gameplay.
 
 ## Installation
 
 1. **Clone the Repository:**
     ```sh
-    git clone https://github.com/yourusername/doomsday-last-survivors-macros.git
-    cd doomsday-last-survivors-macros
+    git clone https://github.com/aadijay3477/Python-scripts.git
+    cd Python-scripts
     ```
 
 2. **Install Dependencies:**
