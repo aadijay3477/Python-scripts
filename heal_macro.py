@@ -5,17 +5,17 @@ import keyboard
 import random
 
 # Constants for offsets and random variation
-PIXEL_OFFSET = 5
+PIXEL_OFFSET = 3
 TIME_VARIATION = 0.003
 MAX_LIMIT_HIVE = 300
 MAX_WAIT_TIME = 26 * 60  # 26 minutes in seconds
 MIN_WAIT_TIME = 60  # 1 minute in seconds
 
 IMAGE_PATH = {
-    'archers': r'./Assets/Heal/Screen_20240602164210.png',    # change here for reclaiming troop-type
+    'archers': r'./Assets/Heal/infantry_collect.png',    # change here for reclaiming troop-type
     'help-icon': r'./Assets/Heal/Screen_20240602022915.png',
     'down-key': r'./Assets/Heal/Screen_20240602023513.png',
-    'troop-type': r'./Assets/Heal/Screen_20240602192343.png',  # change here to different heal type whichever u want to heal
+    'troop-type': r'./Assets/Heal/infantry_heal.png',  # change here to different heal type whichever u want to heal
     'help-button': r'./Assets/Heal/Screen_20240602002218.png',
     'alliance-help': r'./Assets/Heal/Screen_20240602221430.png',
 }

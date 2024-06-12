@@ -1,3 +1,5 @@
+## it's incomplete
+
 import pyautogui
 import time
 import pygetwindow as gw

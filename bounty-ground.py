@@ -4,7 +4,7 @@ import pygetwindow as gw
 import keyboard
 import random
 
-MAX_LIMIT_BOUNTY = 100
+MAX_LIMIT_BOUNTY = 200
 PIXEL_OFFSET = 5
 TIME_VARIATION = 0.003
 DRAG_INTERVAL = 5  # Time in seconds between drag operations
