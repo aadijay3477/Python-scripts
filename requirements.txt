@@ -2,3 +2,4 @@ pyautogui
 pygetwindow
 keyboard
 Pillow
+pywinauto
