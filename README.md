@@ -44,9 +44,6 @@ Doomsday Last Survivors is an engaging but grind-heavy game. Our suite of macros
 
 We welcome contributions! If you have a macro idea or improvements, please fork the repository and create a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Disclaimer
 
