@@ -7,7 +7,7 @@ import pygetwindow as gw
 # Constants for offsets and random variation
 PIXEL_OFFSET = 3
 TIME_VARIATION = 0.003
-MAX_LIMIT_HIVE = 3000
+MAX_LIMIT_HEAL = 300
 MAX_WAIT_TIME = 26 * 60  # 26 minutes in seconds
 MIN_WAIT_TIME = 60  # 1 minute in seconds
 ORIGINAL_TITLE = 'Doomsday: Last Survivors'
@@ -48,11 +48,11 @@ def handle_troop_type(center, duration):
     random_sleep(0.2)
     pyautogui.press('backspace')
     random_sleep(0.26)
-    pyautogui.press('1')
+    pyautogui.press('2')
     random_sleep(0.207)
-    pyautogui.press('1')
+    pyautogui.press('3')
     random_sleep(0.199)
-    pyautogui.press('5')
+    pyautogui.press('0')
     random_sleep(0.39)
 
 # Function to find and click the image
@@ -97,7 +97,7 @@ def activate_window(index):
 def run_macro():
     new_variable = 0
 
-    while new_variable < MAX_LIMIT_HIVE:
+    while new_variable < MAX_LIMIT_HEAL:
         if keyboard.is_pressed('F8'):
             print("F8 pressed, stopping the macro.")
             break
