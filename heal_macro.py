@@ -1,23 +1,25 @@
 import pyautogui
 import time
-import pygetwindow as gw
 import keyboard
 import random
+import pygetwindow as gw
 
 # Constants for offsets and random variation
 PIXEL_OFFSET = 3
 TIME_VARIATION = 0.003
-MAX_LIMIT_HIVE = 300
+MAX_LIMIT_HIVE = 3000
 MAX_WAIT_TIME = 26 * 60  # 26 minutes in seconds
 MIN_WAIT_TIME = 60  # 1 minute in seconds
+ORIGINAL_TITLE = 'Doomsday: Last Survivors'
 
 IMAGE_PATH = {
-    'archers': r'./Assets/Heal/infantry_collect.png',    # change here for reclaiming troop-type
+    'archers': r'./Assets/Heal/rider_collect.png',    
     'help-icon': r'./Assets/Heal/Screen_20240602022915.png',
     'down-key': r'./Assets/Heal/Screen_20240602023513.png',
-    'troop-type': r'./Assets/Heal/infantry_heal.png',  # change here to different heal type whichever u want to heal
+    'troop-type': r'./Assets/Heal/rider_heal.png',  
     'help-button': r'./Assets/Heal/Screen_20240602002218.png',
     'alliance-help': r'./Assets/Heal/Screen_20240602221430.png',
+    'help_provide': r'./Assets/Heal/help_provide.png'  
 }
 
 # Function to click at a specific position with a random offset
@@ -36,7 +38,7 @@ def random_sleep(base_time):
 
 # Function to handle additional logic for troop-type image
 def handle_troop_type(center, duration):
-    click(center.x + 390, center.y + 11, duration)  # Adjust click position
+    click(center.x + 390, center.y + 11, duration)  
     random_sleep(0.2)
     pyautogui.keyDown('ctrl')
     random_sleep(0.189)
@@ -46,24 +48,17 @@ def handle_troop_type(center, duration):
     random_sleep(0.2)
     pyautogui.press('backspace')
     random_sleep(0.26)
-    pyautogui.press('7')
+    pyautogui.press('1')
     random_sleep(0.207)
-    pyautogui.press('0')
+    pyautogui.press('1')
     random_sleep(0.199)
-    pyautogui.press('0')
+    pyautogui.press('5')
     random_sleep(0.39)
-
-# Function to perform random mouse movements
-def random_mouse_movement():
-    x, y = pyautogui.position()
-    new_x = x + random.randint(-100, 100)
-    new_y = y + random.randint(-100, 100)
-    pyautogui.moveTo(new_x, new_y, duration=random.uniform(0.1, 0.3))
 
 # Function to find and click the image
 def find_and_click_image(image_key, duration, max_wait=0):
     image_path = IMAGE_PATH[image_key]
-    print(f"Looking for image: {image_key}")  # Print the image path key
+    print(f"Looking for image: {image_key}")  
     start_time = time.time()
 
     while True:
@@ -73,7 +68,6 @@ def find_and_click_image(image_key, duration, max_wait=0):
                 if location is not None:
                     center = pyautogui.center(location)
                     print(f"Image found at: {location}, center at: {center}, confidence: {(confidence_threshold / 10.0)}")
-                    # Handle specific logic for troop-type image
                     if image_key == 'troop-type':
                         handle_troop_type(center, duration)
                     else:
@@ -88,17 +82,16 @@ def find_and_click_image(image_key, duration, max_wait=0):
         if max_wait and (time.time() - start_time) > max_wait:
             print(f"Image {image_key} not found within the max wait time of {max_wait} seconds")
             return False
-        random_sleep(1)  # Add a small delay before retrying
-        # random_mouse_movement()  # Perform random mouse movement
+        random_sleep(1)
 
-# Activate the game window
-def activate_window():
+# Activate a specific window by index of ORIGINAL_TITLE using pygetwindow as it returns array of windows matching substring of title
+def activate_window(index):
     try:
-        win = gw.getWindowsWithTitle('Doomsday: Last Survivors')[0]
+        win = gw.getWindowsWithTitle(ORIGINAL_TITLE)[index]
         win.activate()
-        random_sleep(0.533)  # Adjusted for the initial sleeps
+        random_sleep(0.533)
     except IndexError:
-        print("Window not found!")
+        print(f"Window '{index}' not found!")
 
 # Main function to run the macro
 def run_macro():
@@ -110,37 +103,40 @@ def run_macro():
             break
 
         new_variable += 1
-        random_sleep(0.103)  # Increased delay
+        random_sleep(0.103)  
         
-        # Ensure the game window is activated before each interaction
-        activate_window()
+        activate_window(0)
         
-        # Perform clicks based on image paths
         if find_and_click_image('help-icon', 0.1):
-            random_sleep(0.104)  # Increased delay
+            random_sleep(0.104)  
         
-        activate_window()  # Ensure window is active before next interaction
+        activate_window(0)  
         if find_and_click_image('down-key', 0.198):
-            random_sleep(0.15)  # Increased delay
+            random_sleep(0.15)  
         
-        activate_window()
+        activate_window(0)
 
         if find_and_click_image('troop-type', 0.18):
             random_sleep(0.17)
-        activate_window()  # Ensure window is active before next interaction
+        activate_window(0)  
 
         if find_and_click_image('help-button', 0.2):
             random_sleep(0.12)
         
-        activate_window()  # Ensure window is active before next interaction
+        activate_window(0)  
         if find_and_click_image('alliance-help', 0.2):
             random_sleep(0.14)
         
-        activate_window()  # Ensure window is active before next interaction
+        activate_window(1)
+        if find_and_click_image('help_provide', 0.2):
+            random_sleep(0.13)
+        
+        activate_window(1) # Check if original window is active
         if find_and_click_image('archers', 0.33, max_wait=MAX_WAIT_TIME):
+        # if find_and_click_image('archers', 0.33):
             print("Archers found and clicked.")
 
 # Run the script
 if __name__ == "__main__":
-    activate_window()
+    activate_window(0)
     run_macro()
