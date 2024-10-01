@@ -13,10 +13,10 @@ MIN_WAIT_TIME = 60  # 1 minute in seconds
 ORIGINAL_TITLE = 'Doomsday: Last Survivors'
 
 IMAGE_PATH = {
-    'archers': r'./Assets/Heal/rider_collect.png',    
+    'archers': r'./Assets/Heal/infantry_collect.png',    
     'help-icon': r'./Assets/Heal/Screen_20240602022915.png',
     'down-key': r'./Assets/Heal/Screen_20240602023513.png',
-    'troop-type': r'./Assets/Heal/rider_heal.png',  
+    'troop-type': r'./Assets/Heal/infantry_heal.png',  
     'help-button': r'./Assets/Heal/Screen_20240602002218.png',
     'alliance-help': r'./Assets/Heal/Screen_20240602221430.png',
     'help_provide': r'./Assets/Heal/help_provide.png'  
@@ -48,9 +48,9 @@ def handle_troop_type(center, duration):
     random_sleep(0.2)
     pyautogui.press('backspace')
     random_sleep(0.26)
-    pyautogui.press('2')
+    pyautogui.press('5')
     random_sleep(0.207)
-    pyautogui.press('3')
+    pyautogui.press('8')
     random_sleep(0.199)
     pyautogui.press('0')
     random_sleep(0.39)
@@ -127,11 +127,7 @@ def run_macro():
         if find_and_click_image('alliance-help', 0.2):
             random_sleep(0.14)
         
-        activate_window(1)
-        if find_and_click_image('help_provide', 0.2):
-            random_sleep(0.13)
-        
-        activate_window(1) # Check if original window is active
+        activate_window(0) # Check if original window is active
         if find_and_click_image('archers', 0.33, max_wait=MAX_WAIT_TIME):
         # if find_and_click_image('archers', 0.33):
             print("Archers found and clicked.")

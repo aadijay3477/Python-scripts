@@ -14,10 +14,10 @@ MIN_WAIT_TIME = 60  # 1 minute in seconds
 ORIGINAL_TITLE = 'Doomsday: Last Survivors'
 
 IMAGE_PATH = {
-    'archers': r'./Assets/Heal/rider_collect.png',    
+    'archers': r'./Assets/Heal/infantry_collect.png',    
     'help-icon': r'./Assets/Heal/Screen_20240602022915.png',
     'down-key': r'./Assets/Heal/Screen_20240602023513.png',
-    'troop-type': r'./Assets/Heal/rider_heal.png',  
+    'troop-type': r'./Assets/Heal/infantry_heal.png',  
     'help-button': r'./Assets/Heal/Screen_20240602002218.png',
     'alliance-help': r'./Assets/Heal/Screen_20240602221430.png',
     'help_provide': r'./Assets/Heal/help_provide.png'  
@@ -49,9 +49,9 @@ def handle_troop_type(center, duration):
     random_sleep(0.2)
     pyautogui.press('backspace')
     random_sleep(0.26)
-    pyautogui.press('2')
+    pyautogui.press('6')
     random_sleep(0.207)
-    pyautogui.press('3')
+    pyautogui.press('8')
     random_sleep(0.199)
     pyautogui.press('0')
     random_sleep(0.39)
@@ -89,7 +89,7 @@ def find_and_click_image(image_key, duration, max_wait=0):
 def activate_window(window):
     try:
         pywinauto.Application().connect(handle=window._hWnd).top_window().set_focus()
-        random_sleep(0.533)
+        random_sleep(0.155)
     except Exception as e:
         print(f"An error occurred while activating the window: {e}")
 
@@ -103,6 +103,10 @@ def run_macro():
     original_window = windows[0]
     secondary_window_1 = windows[1]
     secondary_window_2 = windows[2]
+    secondary_window_3 = windows[3]
+    secondary_window_4 = windows[4]
+    secondary_window_5 = windows[5]
+    secondary_window_6 = windows[6]
 
     new_variable = 0
 
@@ -112,40 +116,57 @@ def run_macro():
             break
 
         new_variable += 1
-        random_sleep(0.103)  
+        random_sleep(0.603)  # Increased by 0.5 seconds
         
         activate_window(original_window)
         
         if find_and_click_image('help-icon', 0.1):
-            random_sleep(0.104)  
+            random_sleep(0.604)  # Increased by 0.5 seconds
         
         activate_window(original_window)  
         if find_and_click_image('down-key', 0.198):
-            random_sleep(0.15)  
+            random_sleep(0.65)  # Increased by 0.5 seconds
         
         activate_window(original_window)
 
         if find_and_click_image('troop-type', 0.18):
-            random_sleep(0.17)
+            random_sleep(0.67)  # Increased by 0.5 seconds
         
         activate_window(original_window)  
 
         if find_and_click_image('help-button', 0.2):
-            random_sleep(0.12)
+            random_sleep(0.62)  # Increased by 0.5 seconds
         
         activate_window(original_window)  
         if find_and_click_image('alliance-help', 0.2):
-            random_sleep(0.14)
+            random_sleep(0.64)  # Increased by 0.5 seconds
         
         activate_window(secondary_window_1)
-        if find_and_click_image('help_provide', 0.2):
-            random_sleep(0.13)
+        if click(1249, 535, 0.2):
+            random_sleep(0.63)  # Increased by 0.5 seconds
         
         activate_window(secondary_window_2)
-        if find_and_click_image('help_provide', 0.2):
-            random_sleep(0.13)
+        if click(1249, 535, 0.2):
+            random_sleep(0.63)  # Increased by 0.5 seconds
         
-        activate_window(original_window) # Ensure the original window is active
+        activate_window(secondary_window_3)
+        if click(1249, 535, 0.2):
+            random_sleep(0.63)  # Increased by 0.5 seconds
+        
+        activate_window(secondary_window_4)
+        if click(1249, 535, 0.2):
+            random_sleep(0.63)  # Increased by 0.5 seconds
+        
+        activate_window(secondary_window_5)
+        if click(1249, 535, 0.2):
+            random_sleep(0.63)  # Increased by 0.5 seconds
+        
+        activate_window(secondary_window_6)
+        if click(1249, 535, 0.2):
+            random_sleep(0.63)  # Increased by 0.5 seconds
+
+
+        activate_window(original_window)  # Ensure the original window is active
         if find_and_click_image('archers', 0.33, max_wait=MAX_WAIT_TIME):
             print("Archers found and clicked.")
 
