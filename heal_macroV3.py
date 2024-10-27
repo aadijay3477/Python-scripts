@@ -99,11 +99,11 @@ def run_macro():
         activate_window(original_window)
         
         if find_and_click_image('help-icon', 0.1):
-            random_sleep(0.604)  # Increased by 0.5 seconds
+            random_sleep(0.6)  # Increased by 0.5 seconds
         
         activate_window(original_window)  
         if find_and_click_image('down-key', 0.198):
-            random_sleep(0.65)  # Increased by 0.5 seconds
+            random_sleep(0.95)  # Increased by 0.5 seconds
 
             #this section clicks and fill the troop value
             click(1156, 219, 0.198)
@@ -111,38 +111,44 @@ def run_macro():
             pyautogui.keyDown('ctrl')
             random_sleep(0.189)
             pyautogui.press('a')
-            random_sleep(0.376)
+            random_sleep(0.3)
             pyautogui.keyUp('ctrl')
             random_sleep(0.2)
             pyautogui.press('backspace')
-            random_sleep(0.26)
-            pyautogui.press('6')
-            random_sleep(0.207)
-            pyautogui.press('8')
-            random_sleep(0.199)
+            random_sleep(0.2)
+            # pyautogui.press('8')
+            # random_sleep(0.1)
+            # pyautogui.press('5')
+            # random_sleep(0.05)
+            pyautogui.press('1')
+            random_sleep(0.05)
+            pyautogui.press('1')
+            random_sleep(0.05)
+            pyautogui.press('4')
+            random_sleep(0.05)
             pyautogui.press('0')
-            random_sleep(0.4)
+            random_sleep(0.05)
 
         #this section clicks on heal button
         activate_window(original_window)
-        click(1090, 655, 0.2)
-        random_sleep(1)
+        click(1090, 655, 0.15)
+        random_sleep(1.6)
 
         #this section clicks for alliance help
         activate_window(original_window)
-        if find_and_click_image('alliance-help', 0.4):
-            random_sleep(0.6)
+        click(REC_CENTER.x, REC_CENTER.y, 0.4)
+        random_sleep(1)
         
-        for i in range(1,7): #suppose 6 bots
+        for i in range(1,11): #suppose 6 bots
             activate_window(windows[i])
-            if click(681, 688, 0.2):
-                random_sleep(0.63)  # Increased by 0.5 seconds
+            random_sleep(0.3)
+            if click(600, 669, 0.1):
+                random_sleep(0.4)  # Increased by 0.5 seconds
 
         random_sleep(0.4)
         activate_window(original_window)  # Ensure the original window is active
         random_sleep(0.5)
-        if click(REC_CENTER.x, REC_CENTER.y, 0.33):
-            print("collected after heal.")
+        click(REC_CENTER.x, REC_CENTER.y, 0.33)
 
 def listen_for_exit():
     global exit_flag

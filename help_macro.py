@@ -48,8 +48,8 @@ def run_macro():
             if exit_flag:  # Exit immediately if flag is set
                 break
             activate_window(windows[i])
-            random_sleep(0.603)
-            click(681, 688, 0.1)
+            random_sleep(0.503)
+            click(600, 669, 0.1)
 
 # Function to listen for 'Q' key press in a separate thread
 def listen_for_exit():
