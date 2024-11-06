@@ -49,7 +49,7 @@ def run_macro():
                 break
             activate_window(windows[i])
             random_sleep(0.503)
-            click(600, 669, 0.1)
+            click(681, 669, 0.1)
 
 # Function to listen for 'Q' key press in a separate thread
 def listen_for_exit():
