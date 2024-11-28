@@ -97,27 +97,28 @@ def activate_window(window):
 
 # Main function to run the macro actions
 def run_macro():
-    counter = 0
+    counter = 1
     windows = gw.getWindowsWithTitle(ORIGINAL_TITLE)
     if len(windows) < BOT_COUNT:
         print("There are not enough windows with the specified title substring.")
         return
 
-    while not exit_event.is_set() and counter < 150:
+    while not exit_event.is_set() and counter < 300:
         for i in range(BOT_COUNT):
             if exit_event.is_set():  # Exit immediately if flag is set
                 break
             activate_window(windows[i])
             random_sleep(1)
-            click(43, 571, 0.1)    # Step: Search
+            click(43, 471, 0.1)    # Step: Search
             random_sleep(1.503)
 
             # Random clicks on + or - signs
-            x = random.choice([386, 76])  # + or - sign coordinates
-            num_clicks = random.randint(1,2)
-            for _ in range(num_clicks):
-                click(x, 416, 0.1)
-                random_sleep(0.06)
+            if counter % 8 == 0:
+                x = random.choice([386, 76])  # + or - sign coordinates
+                num_clicks = random.randint(0,1)
+                for _ in range(num_clicks):
+                    click(x, 416, 0.1)
+                    random_sleep(0.06)
 
             click(227, 497, 0.2)   # Step: Search button
             random_sleep(1.503)

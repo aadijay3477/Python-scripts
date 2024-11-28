@@ -13,7 +13,7 @@ TIME_VARIATION = 0.010
 ORIGINAL_TITLE = 'Doomsday: Last Survivors'
 exit_event = threading.Event()  # Thread-safe exit event
 
-BOT_COUNT = 1  # For demo purposes; replace with user input if needed
+BOT_COUNT = 4  # For demo purposes; replace with user input if needed
 
 # x,y for hivemind button 410, 660
 
@@ -34,13 +34,14 @@ BOT_COUNT = 1  # For demo purposes; replace with user input if needed
 # Image paths
 IMAGE_PATH = {
     'rally': r'./Assets/hive/rally.png',
-    'stopped2': r'./Assets/hive/stopped2.png',
-    'rally_attack': r'./Assets/hive/rally_attack.png'
+    'stopped3': r'./Assets/hive/stopped3.png',
+    'rally_attack': r'./Assets/hive/rally_attack.png',
+    'march': r'./Assets/hive/march.png'
 }
 
-# Coordinates for 'stopped2' image search area
+# Coordinates for 'stopped3' image search area
 SEARCH_AREA ={
-'stopped2': (1312, 267, 1360, 290),
+'stopped3': (1312, 267, 1360, 290),
 'rally_attack': (1230,88, 1350, 172)
 } 
 
@@ -70,16 +71,16 @@ def find_and_click_image(image_key, duration, max_wait=30):
         random_sleep(1)
 
 def find_only(image_key, max_wait=600):
-    """Searches for the 'stopped2' image within a specified region.
+    """Searches for the 'stopped3' image within a specified region.
        Returns True if found within max_wait time, otherwise False.
     """
     image_path = IMAGE_PATH[image_key]
-    print("Searching for 'stopped2' image within specified area...")
+    print("Searching for 'stopped3' image within specified area...")
     start_time = time.time()
 
     while True:
         try:
-            location = pyautogui.locateOnScreen(image_path, region=SEARCH_AREA[image_key], confidence=0.8)
+            location = pyautogui.locateOnScreen(image_path, region=SEARCH_AREA[image_key], confidence=0.8, grayscale=True)
             if location:
                 print(f"'{image_key}' image found at {location}.")
                 return True
@@ -123,16 +124,21 @@ def run_macro():
         print("There are not enough windows with the specified title substring.")
         return
 
-    while not exit_event.is_set() and counter <= 18:
+    while not exit_event.is_set() and counter <= 50:
         for i in range(BOT_COUNT):
             if exit_event.is_set():  # Exit immediately if flag is set
                 break
             activate_window(windows[i])
+            random_sleep(3)
+            pyautogui.hotkey('esc')
             random_sleep(1)
-            click(43, 571, 0.1)    # Step: Search
-            random_sleep(1.503)
-            
-            click(410, 660, 0.1)
+            pyautogui.hotkey('esc')
+            random_sleep(5)
+            for _ in range(i+1):
+                click(43, 471, 0.1)    # Step: Search
+                random_sleep(1.503)
+                
+                click(410, 660, 0.1)
 
             # Random clicks on + or - signs (experimental) 
             # works on zombiekill but not on hives for low might accounts specially
@@ -143,8 +149,8 @@ def run_macro():
             #         click(x, 416, 0.1)
             #         random_sleep(0.06)
 
-            click(405, 497, 0.2)   # Step: Search button
-            random_sleep(1.503)
+                click(405, 497, 0.2)   # Step: Search button
+                random_sleep(4)
 
             random_sleep(3.303)
             click(690, 376, 0.15)  # Step: Mid search button
@@ -155,23 +161,31 @@ def run_macro():
                     if find_and_click_image('rally', 0.5, 6):
                         print('Rally could be done! next rally button visible')
                         random_sleep(0.503)
-                        click(1005, 685, 0.1)  # Step: March button
-                        random_sleep(240)
+                        # click(1005, 685, 0.1)  # Step: March button
+                        # random_sleep(6)
+                        if find_and_click_image('march', 0.5, 6):
+                            random_sleep(5)
+                        else:
+                            pyautogui.hotkey('esc')
+                            random_sleep(3)
+                        continue
                 else:
                     print('next rally button not found! next iteration')
+                    pyautogui.hotkey('esc')
+                    random_sleep(2)
                     continue
             else:
                 continue
 
-
-            if find_only('stopped2'):
-                print("'Stopped' detected. Proceeding to the next iteration.")
-                pyautogui.hotkey('esc')
-                random_sleep(0.100)
-                pyautogui.hotkey('esc')
-                random_sleep(0.489)
-            else:
-                print("Max wait time reached; proceeding without detecting 'Stopped'.")
+            # for sequential rallies but slow remove to launch rigorous rallies
+            # if find_only('stopped3'):
+            #     print("'Stopped' detected. Proceeding to the next iteration.")
+            #     pyautogui.hotkey('esc')
+            #     random_sleep(0.100)
+            #     pyautogui.hotkey('esc')
+            #     random_sleep(0.489)
+            # else:
+            #     print("Max wait time reached; proceeding without detecting 'Stopped'.")
         counter += 1
 
 # Function to listen for 'Q' key press in a separate thread
