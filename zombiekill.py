@@ -9,6 +9,7 @@ import threading
 
 # Constants for offsets and random variation
 PIXEL_OFFSET = 3
+FLAG = False
 TIME_VARIATION = 0.010
 ORIGINAL_TITLE = 'Doomsday: Last Survivors'
 exit_event = threading.Event()  # Thread-safe exit event
@@ -22,7 +23,7 @@ IMAGE_PATH = {
 }
 
 # Coordinates for 'stopped' image search area
-STOPPED_SEARCH_AREA = (1312, 267, 1350, 291)
+STOPPED_SEARCH_AREA = (1312, 267, 1350, 450)
 
 def find_and_click_image(image_key, duration, max_wait=10):
     image_path = IMAGE_PATH[image_key]
@@ -97,13 +98,14 @@ def activate_window(window):
 
 # Main function to run the macro actions
 def run_macro():
+    global FLAG
     counter = 1
     windows = gw.getWindowsWithTitle(ORIGINAL_TITLE)
     if len(windows) < BOT_COUNT:
         print("There are not enough windows with the specified title substring.")
         return
 
-    while not exit_event.is_set() and counter < 300:
+    while not exit_event.is_set() and counter < 3000:
         for i in range(BOT_COUNT):
             if exit_event.is_set():  # Exit immediately if flag is set
                 break
@@ -113,7 +115,7 @@ def run_macro():
             random_sleep(1.503)
 
             # Random clicks on + or - signs
-            if counter % 8 == 0:
+            if FLAG is True:
                 x = random.choice([386, 76])  # + or - sign coordinates
                 num_clicks = random.randint(0,1)
                 for _ in range(num_clicks):
@@ -128,7 +130,9 @@ def run_macro():
             random_sleep(1.503)
             if find_and_click_image('attack', 0.5):
                 random_sleep(1.503)
+                FLAG = False
             else:
+                FLAG = True
                 continue
             click(1256, 731, 0.1)  # Step: Multiple check, one-time click per loop
             random_sleep(1.503)
